@@ -3,6 +3,7 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
+const packageName = process.env.npm_package_name;
 const mxHost = process.env.npm_package_config_mendixHost || "http://localhost:8080";
 const developmentPort = process.env.npm_package_config_developmentPort || "3000";
 

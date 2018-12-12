@@ -10,7 +10,7 @@ import "react-select/dist/react-select.css";
 import "../../SharedResources/ui/Dropdown.scss";
 
 export interface ReferenceOption {
-    value: string | boolean;
+    value: string;
     label: string;
 }
 
@@ -54,6 +54,8 @@ export class DropdownReferenceSet extends Component<DropdownProps> {
         };
 
         if (this.props.readOnlyStyle === "control" || (this.props.readOnlyStyle === "text" && !this.props.isReadOnly)) {
+            const loadOptions = (input?: string) => (this.props.asyncData as (input?: string) => Promise<{}>)(input);
+
             return createElement("div", {
                 className: "widget-dropdown-reference-set",
                 onClick: this.setDropdownSize
@@ -74,7 +76,7 @@ export class DropdownReferenceSet extends Component<DropdownProps> {
                     : createElement(Async, {
                         autoload: false,
                         autoFocus: true,
-                        loadOptions: debounce(this.props.asyncData, 200),
+                        loadOptions: debounce(loadOptions, 200),
                         searchPromptText: this.props.searchPromptText,
                         ...commonProps
                     }),

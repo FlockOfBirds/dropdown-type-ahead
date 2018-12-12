@@ -1,5 +1,9 @@
 @import "variables";
 .widget-dropdown-reference, .widget-dropdown-reference-set {
+  .widget-dropdown-reference-alert {
+    margin-top: 5px;
+  }
+
   .Select-arrow {
     display: none;
   }

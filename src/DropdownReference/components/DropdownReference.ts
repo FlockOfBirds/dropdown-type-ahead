@@ -47,6 +47,8 @@ export class DropdownReference extends Component<DropdownProps> {
         };
 
         if (this.props.readOnlyStyle === "control" || (this.props.readOnlyStyle === "text" && !this.props.isReadOnly)) {
+            const loadOptions = (input?: string) => (this.props.asyncData as (input?: string) => Promise<{}>)(input);
+
             return createElement("div", {
                 className: "widget-dropdown-reference",
                 onClick: this.setDropdownSize
@@ -58,7 +60,7 @@ export class DropdownReference extends Component<DropdownProps> {
                     })
                     : createElement(Async, {
                         searchPromptText: this.props.searchPromptText,
-                        loadOptions: debounce(this.props.asyncData, 200),
+                        loadOptions: debounce(loadOptions, 200),
                         ...commonProps
                     }),
                 createElement(Alert, { className: "widget-dropdown-reference-alert" }, this.props.alertMessage)

@@ -26,14 +26,14 @@ export interface FetchByXPathOptions {
 export interface ReferencesSpec {
     attributes?: string[];
     amount?: number;
-    sort?: Array<[ string ]>;
+    sort?: string[];
     references?: {
         [ index: string ]: ReferencesSpec;
     };
 }
 
 export interface FetchedData {
-    mxObjects?: mendix.lib.MxObject[];
+    mxObjects?: MxObject[];
 }
 
 const addPathReference = (references: ReferencesSpec, path: string): ReferencesSpec =>
@@ -62,8 +62,8 @@ const addPathReference = (references: ReferencesSpec, path: string): ReferencesS
         return referenceSet;
     }, references);
 
-export const fetchData = (options: FetchDataOptions): Promise<mendix.lib.MxObject[]> =>
-    new Promise<mendix.lib.MxObject[]>((resolve, reject) => {
+export const fetchData = (options: FetchDataOptions): Promise<MxObject[]> =>
+    new Promise<MxObject[]>((resolve, reject) => {
         const { guid, entity, sortAttributes } = options;
         if (entity && guid) {
             if (options.source === "xpath") {
@@ -112,21 +112,15 @@ export const fetchByXPath = (options: FetchByXPathOptions): Promise<MxObject[]> 
     });
 });
 
-export const createSortProps = (sortAttributes: AttributeType[]) => {
-    const combined: any = [];
-    sortAttributes.map(optionObject => {
-        const { name, sort } = optionObject;
-        combined.push([ name, sort ]);
-    });
-
-    return combined;
+export const createSortProps = (sortAttributes: AttributeType[] | any) => {
+    return sortAttributes.map((optionObject: AttributeType) => [ optionObject.name, optionObject.sort ]);
 };
 
 export const fetchByMicroflow = (actionname: string, guid: string): Promise<MxObject[]> =>
     new Promise((resolve, reject) => {
         const errorMessage = `An error occurred while retrieving data by microflow (${actionname}): `;
         window.mx.ui.action(actionname, {
-            callback: result => resolve(result as any),
+            callback: result => resolve(result as MxObject[]),
             error: error => reject(`${errorMessage} ${error.message}`),
             params: { applyto: "selection", guids: [ guid ] }
         });
@@ -137,7 +131,7 @@ export const fetchByNanoflow = (actionname: mx.Nanoflow, mxform: mxui.lib.form._
         const errorMessage = `An error occurred while retrieving data by nanoflow: `;
         const context = new mendix.lib.MxContext();
         window.mx.data.callNanoflow({
-            callback: result => resolve(result as any),
+            callback: result => resolve(result as MxObject[]),
             context,
             error: error => reject(`${errorMessage} ${error.message}`),
             nanoflow: actionname,

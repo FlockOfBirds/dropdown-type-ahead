@@ -22,9 +22,9 @@ describe("Alert", () => {
     });
 
     it("renders with the specified class", () => {
-        const alert = renderAlert({ className: "widget-color-picker-alert" }, alertMessage);
+        const alert = renderAlert({ className: "widget-dropdown-reference-alert" }, alertMessage);
 
-        expect(alert).toHaveClass("widget-color-picker-alert");
+        expect(alert).toHaveClass("widget-dropdown-reference-alert");
     });
 
     it("with no bootstrap style specified renders with the class alert-danger", () => {

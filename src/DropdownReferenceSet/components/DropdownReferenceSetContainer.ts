@@ -33,7 +33,7 @@ export interface ContainerProps extends WrapperProps, DropdownProps {
 export interface ContainerState {
     isClearable: boolean;
     options: ReferenceOption[];
-    selected: any;
+    selected: ReferenceOption[] | any;
 }
 
 class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerState> {
@@ -45,7 +45,6 @@ class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerS
 
     private subscriptionHandles: number[] = [];
     private association: string = this.props.entityPath.split("/")[0];
-    private readonly handleOnClick: (selectedOption: ReferenceOption | any) => void = this.onChange.bind(this);
 
     render() {
         return createElement(DropdownReferenceSet, {
@@ -54,7 +53,7 @@ class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerS
             data: this.state.options,
             asyncData: this.setAsyncOptions,
             emptyOptionCaption: this.props.emptyOptionCaption,
-            handleOnchange: this.handleOnClick,
+            handleOnchange: this.onChange,
             isClearable: this.props.isClearable,
             selectType: this.props.selectType,
             lazyFilter: this.props.lazyFilter,
@@ -74,7 +73,7 @@ class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerS
     }
 
     componentWillReceiveProps(newProps: ContainerProps) {
-        if (newProps.mxObject !== this.props.mxObject) {
+        if (newProps.mxObject && newProps.mxObject !== this.props.mxObject) {
             const selected = newProps.mxObject.get(this.association);
             this.getSelectedValues(newProps);
             this.resetSubscriptions(newProps.mxObject);
@@ -130,7 +129,7 @@ class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerS
         }
     }
 
-    private onChange(recentSelection: ReferenceOption[]) {
+    private onChange = (recentSelection: ReferenceOption[] | any) => {
         if (this.props.mxObject) {
             const selectedOptions: string[] = [];
 
@@ -245,9 +244,6 @@ class DropdownReferenceSetContainer extends Component<ContainerProps, ContainerS
             if (input && input.length >= this.props.minimumCharacter) {
                 return this.retrieveOptions(this.props, input)
                     .then(() => Promise.resolve({ options: this.state.options }));
-            } else {
-                return this.getSelectedValues(this.props)
-                    .then(() => Promise.resolve({ options: [] }));
             }
         }
 

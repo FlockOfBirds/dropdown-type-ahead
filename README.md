@@ -2,13 +2,12 @@
 [![Dependency Status](https://david-dm.org/mendixlabs/dropdown-type-ahead.svg)](https://david-dm.org/mendixlabs/dropdown-type-ahead)
 [![Dev Dependency Status](https://david-dm.org/mendixlabs/dropdown-type-ahead.svg#info=devDependencies)](https://david-dm.org/mendixlabs/dropdown-type-ahead#info=devDependencies)
 [![codecov](https://codecov.io/gh/mendixlabs/dropdown-type-ahead/branch/master/graph/badge.svg)](https://codecov.io/gh/mendixlabs/dropdown-type-ahead)
-![badge](https://img.shields.io/badge/mendix-7.14.1-green.svg)
+![badge](https://img.shields.io/badge/mendix-7.21.0-green.svg)
 
 # Dropdown
 An input widget used to display and edit associations for reference and reference sets
 
 ## Features
-* Search for matching options
 * Selection of multiple options
 * Asynchronous loading of options
 * Supports different data sources
@@ -44,8 +43,6 @@ For a basic configuration, set up the widget as indicated below:-
 ![dropdown-typeahead-label](/assets/dropdown-typeahead-label.png)
 ### Selectable objects
 ![dropdown-typeahead-selectable-objects](/assets/dropdown-typeahead-selectable.png)
-### Search
-![dropdown-typeahead-search](/assets/dropdown-typeahead-search.png)
 ### Events
 ![dropdown-typeahead-events](/assets/dropdown-typeahead-events.png)
 

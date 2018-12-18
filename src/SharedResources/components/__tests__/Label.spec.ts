@@ -8,7 +8,7 @@ describe("Label", () => {
     const label = "Label";
 
     it("renders the structure correctly", () => {
-        const labelComponent = renderLabel({ label, orientation: "horizontal" });
+        const labelComponent = renderLabel({ caption: label, orientation: "horizontal" });
 
         expect(labelComponent).toBeElement(
             createElement("div", { className: "form-group" },
@@ -19,7 +19,7 @@ describe("Label", () => {
     });
 
     it("with orientation as vertical renders with the structure", () => {
-        const labelComponent = renderLabel({ label, orientation: "vertical" });
+        const labelComponent = renderLabel({ caption: label, orientation: "vertical" });
 
         expect(labelComponent).toBeElement(
             createElement("div", { className: "form-group" },
@@ -30,7 +30,7 @@ describe("Label", () => {
     });
 
     it("renders a label with the specified weight class", () => {
-        const labelComponent = renderLabel({ label, orientation: "horizontal", weight: 3 });
+        const labelComponent = renderLabel({ caption: label, orientation: "horizontal", width: 3 });
         const colorLabel = labelComponent.childAt(0);
 
         expect(colorLabel).toHaveClass("col-sm-3");
@@ -38,14 +38,14 @@ describe("Label", () => {
 
     it("renders the labeled element's wrapper with the calculated weight class", () => {
         const weight = 3;
-        const labelComponent = renderLabel({ label, orientation: "horizontal", weight });
+        const labelComponent = renderLabel({ caption: label, orientation: "horizontal", width: weight });
         const childrenWrapper = labelComponent.childAt(1);
 
         expect(childrenWrapper).toHaveClass(`col-sm-${12 - weight}`);
     });
 
     it("renders a label with calculated weight when specified value is greater than 11", () => {
-        const labelComponent = renderLabel({ label, orientation: "horizontal", weight: 20 });
+        const labelComponent = renderLabel({ caption: label, orientation: "horizontal", width: 20 });
         const colorLabel = labelComponent.childAt(0);
 
         expect(colorLabel).toHaveClass("col-sm-3");

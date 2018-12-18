@@ -1,5 +1,6 @@
 import { shallow } from "enzyme";
 import { createElement } from "react";
+import * as classNames from "classnames";
 
 import Select from "react-select";
 import { Label } from "../../../SharedResources/components/Label";
@@ -35,8 +36,8 @@ describe("DropdownReference", () => {
         const DropdownReferenceComponent = render(ReferenceProps);
 
         expect(DropdownReferenceComponent).toBeElement(
-            createElement(Label, { label: "City" , orientation: "horizontal" , weight: 3 },
-                createElement("div", { className: "widget-dropdown-reference", onClick: jasmine.any(Function) },
+            createElement(Label, { caption: "City" , orientation: "horizontal" , width: 3 },
+                createElement("div", { className: classNames("widget-dropdown-reference", "has-error"), onClick: jasmine.any(Function) },
                 createElement(Select, {
                     clearable: true,
                     noResultsText: "No results found",
@@ -56,7 +57,7 @@ describe("DropdownReference", () => {
 
         DropdownReferenceComponent.setProps({ labelCaption: "", showLabel: false });
         expect(DropdownReferenceComponent).toBeElement(
-            createElement("div", { className: "widget-dropdown-reference", onClick: jasmine.any(Function) },
+            createElement("div", { className: classNames("widget-dropdown-reference", "has-error"), onClick: jasmine.any(Function) },
             createElement(Select, {
                 clearable: true,
                 noResultsText: "No results found",

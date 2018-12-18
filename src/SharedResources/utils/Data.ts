@@ -102,7 +102,10 @@ export const fetchByXPath = (options: FetchByXPathOptions): Promise<MxObject[]> 
     window.mx.data.get({
         xpath,
         callback: resolve,
-        error: error => reject(`An error occurred while retrieving data via XPath (${xpath}): ${error.message}`),
+        error: error => {
+            const detail = error.message ? `: ${error.message}` : "";
+            reject(`An error occurred while retrieving data via XPath (${xpath})${detail}`);
+        },
         filter: {
             attributes,
             offset: 0,
@@ -118,22 +121,26 @@ export const createSortProps = (sortAttributes: AttributeType[] | any) => {
 
 export const fetchByMicroflow = (actionname: string, guid: string): Promise<MxObject[]> =>
     new Promise((resolve, reject) => {
-        const errorMessage = `An error occurred while retrieving data by microflow (${actionname}): `;
         window.mx.ui.action(actionname, {
             callback: result => resolve(result as MxObject[]),
-            error: error => reject(`${errorMessage} ${error.message}`),
+            error: error => {
+                const detail = error.message ? `: ${error.message}` : "";
+                reject(`An error occurred while retrieving data by microflow (${actionname})${detail}`);
+            },
             params: { applyto: "selection", guids: [ guid ] }
         });
     });
 
 export const fetchByNanoflow = (actionname: mx.Nanoflow, mxform: mxui.lib.form._FormBase): Promise<MxObject[]> =>
     new Promise((resolve, reject) => {
-        const errorMessage = `An error occurred while retrieving data by nanoflow: `;
         const context = new mendix.lib.MxContext();
         window.mx.data.callNanoflow({
             callback: result => resolve(result as MxObject[]),
             context,
-            error: error => reject(`${errorMessage} ${error.message}`),
+            error: error => {
+                const detail = error.message ? `: ${error.message}` : "";
+                reject(`An error occurred while retrieving data by nanoflow${detail}`);
+            },
             nanoflow: actionname,
             origin: mxform
         });

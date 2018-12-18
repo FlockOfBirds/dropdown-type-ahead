@@ -1,4 +1,4 @@
-import { Component, createElement } from "react";
+import { Component, ReactNode, createElement } from "react";
 import Select, { Async } from "react-select";
 import * as classNames from "classnames";
 
@@ -15,35 +15,33 @@ export interface ReferenceOption {
 }
 
 export class DropdownReferenceSet extends Component<DropdownProps> {
-    render() {
+    render(): ReactNode {
         return this.props.showLabel
             ? createElement(Label, {
-                className: this.props.className,
-                label: this.props.labelCaption,
+                class: this.props.className,
+                caption: this.props.labelCaption,
                 orientation: this.props.labelOrientation,
                 style: this.props.styleObject,
-                weight: this.props.labelWidth
-            }, this.renderSelector())
+                width: this.props.labelWidth
+            }, this.renderSelector(true))
             : this.renderSelector();
     }
 
     componentDidMount() {
         const scrollContainer = document.querySelector(".mx-window-body");
         if (scrollContainer && this.props.location === "popup") {
-            (document.getElementsByClassName("widget-dropdown-reference-set")[0] as HTMLElement).style.overflow = "hidden";
-            scrollContainer.addEventListener("scroll", () => { hideDropDown(); });
+            scrollContainer.addEventListener("scroll", hideDropDown);
         }
     }
 
     componentWillUnmount() {
         const scrollContainer = document.querySelector(".mx-window-body");
         if (scrollContainer && this.props.location === "popup") {
-            (document.getElementsByClassName("widget-dropdown-reference-set")[0] as HTMLElement).style.overflow = "hidden";
-            scrollContainer.removeEventListener("scroll", () => { hideDropDown(); });
+            scrollContainer.removeEventListener("scroll", hideDropDown);
         }
     }
 
-    private renderSelector() {
+    private renderSelector(hasLabel = false) {
         const commonProps = {
             clearable: this.props.isClearable,
             multi: true,
@@ -57,7 +55,15 @@ export class DropdownReferenceSet extends Component<DropdownProps> {
             const loadOptions = (input?: string) => (this.props.asyncData as (input?: string) => Promise<{}>)(input);
 
             return createElement("div", {
-                className: "widget-dropdown-reference-set",
+                className: classNames(
+                    "widget-dropdown-reference-set",
+                    !hasLabel ? this.props.className : undefined,
+                    {
+                        "popup-fix": this.props.location === "popup",
+                        "has-error": this.props.alertMessage
+                    }
+                ),
+                style: !hasLabel ? this.props.styleObject : undefined,
                 onClick: this.setDropdownSize
             },
                 this.props.selectType === "normal"
@@ -91,10 +97,10 @@ export class DropdownReferenceSet extends Component<DropdownProps> {
 
     private setDropdownSize = () => {
         const dropdown = document.getElementsByClassName("Select-menu-outer");
-        const dropdownElement = dropdown[0] as HTMLElement;
+        const dropdownElement = dropdown[0] as HTMLElement; // We pick the first element because only one dropdown can be opened at a time
         if (dropdownElement && dropdownElement.style.visibility !== "visible" && this.props.location === "popup") {
             dropdownElement.style.visibility = "hidden";
-            const dropdownDimensions = dropdown[0].getBoundingClientRect();
+            const dropdownDimensions = dropdownElement.getBoundingClientRect();
             if (dropdownDimensions) {
                 dropdownElement.style.width = dropdownDimensions.width - .08 + "px";
                 dropdownElement.style.left = dropdownDimensions.left + "px";

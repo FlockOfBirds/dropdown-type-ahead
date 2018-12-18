@@ -1,9 +1,5 @@
 @import "variables";
 .widget-dropdown-reference, .widget-dropdown-reference-set {
-  .widget-dropdown-reference-alert {
-    margin-top: 5px;
-  }
-
   .Select-arrow {
     display: none;
   }
@@ -56,6 +52,13 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15px' height='8px'><polyline id='Line' fill='none' stroke='%23555555' points='0.5 0.5 6 6 11.545361 0.5'></polyline></svg>");
   }
 }
+
+.widget-dropdown-reference.has-error, .widget-dropdown-reference-set.has-error {
+  .Select-control {
+    border-color: #a94442;
+  }
+}
+
 .widget-dropdown-reference-set {
   .Select.has-value.is-disabled > .Select-control > .Select-multi-value-wrapper > .Select-value {
     background-color: $gray-lighter;
@@ -64,6 +67,8 @@
     font-size: 14px;
   }
 }
+
+.popup-fix { overflow: hidden; }
 
 .form-control-static.read-only-text {
   min-height: 34px;

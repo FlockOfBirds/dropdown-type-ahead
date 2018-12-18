@@ -53,7 +53,8 @@ export class preview extends Component<ContainerProps, {}> {
 
 export function getPreviewCss() {
     return (
-        require("react-select/dist/react-select.css") + require("../SharedResources/ui/Dropdown.scss")
+        require("react-select/dist/react-select.css") +
+        require("../SharedResources/ui/Dropdown.scss")
     );
 }
 

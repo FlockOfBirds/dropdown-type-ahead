@@ -1,4 +1,4 @@
-import { Component, createElement } from "react";
+import { Component, ReactNode, createElement } from "react";
 import * as initializeReactFastclick from "react-fastclick";
 import { hot } from "react-hot-loader";
 
@@ -45,15 +45,16 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
 
     private subscriptionHandles: number[] = [];
     private association: string = this.props.entityPath.split("/")[0];
+    private onChangeHandler = this.onChange.bind(this);
 
-    render() {
+    render(): ReactNode {
         return createElement(DropdownReference, {
             alertMessage: validateProps(this.props),
             className: this.props.class,
             data: this.state.options,
             asyncData: this.setAsyncOptions,
             emptyOptionCaption: this.props.emptyOptionCaption,
-            handleOnchange: this.onChange,
+            handleOnchange: this.onChangeHandler,
             isClearable: this.state.isClearable,
             selectType: this.props.selectType,
             lazyFilter: this.props.lazyFilter,
@@ -85,7 +86,7 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
     }
 
     componentDidMount() {
-        initializeReactFastclick();
+        initializeReactFastclick(); // This fixes delayed touch events on ios
     }
 
     componentWillUnmount() {
@@ -115,7 +116,7 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
         });
     }
 
-    private isReadOnly = (): boolean => {
+    private isReadOnly(): boolean {
         const { editable, mxObject, readOnly } = this.props;
 
         return editable !== "default" || !mxObject || readOnly;
@@ -136,9 +137,9 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
                 guid: mxObject.getGuid()
             }));
             this.subscriptionHandles.push(window.mx.data.subscribe({
+                guid: mxObject.get(this.association) as string,
                 attr: this.props.attribute,
-                callback: this.handleSubscriptions,
-                guid: mxObject.get(this.association) as string
+                callback: this.handleSubscriptions
             }));
             this.subscriptionHandles.push(window.mx.data.subscribe({
                 entity: this.props.entityPath.split("/")[1],
@@ -148,6 +149,11 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
                     this.retrieveOptions(this.props);
                 }
             }));
+            this.subscriptionHandles.push(window.mx.data.subscribe({
+                guid: mxObject.get(this.association) as string,
+                val: true,
+                callback: () => validateProps
+            }));
         }
     }
 
@@ -155,11 +161,12 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
         this.getSelectedValue(this.props);
     }
 
-    private onChange = (selection: ReferenceOption) => {
+    private onChange(selection: ReferenceOption) {
         if (this.props.mxObject) {
             if (!selection) {
                 const references = this.props.mxObject.getReferences(this.association);
                 this.props.mxObject.removeReferences(this.association, references);
+                this.executeOnChangeAction();
             } else {
                 this.props.mxObject.set(this.association, selection.value);
                 if (!this.state.selectedObject || (this.state.selectedObject.value !== selection.value)) {
@@ -178,19 +185,22 @@ class DropdownReferenceContainer extends Component<ContainerProps, ContainerStat
         context.setContext(mxObject.getEntity(), mxObject.getGuid());
         if (onChangeEvent === "callMicroflow" && onChangeMicroflow) {
             window.mx.ui.action(onChangeMicroflow, {
-                params: {
-                    applyto: "selection",
-                    guids: [ mxObject.getGuid() ]
-                },
+                context,
                 origin: mxform,
-                error: error => window.mx.ui.error(`Error while executing onchange microflow ${onChangeMicroflow}: ${error.message}`)
+                error: error => {
+                    const detail = error.message ? `: ${error.message}` : "";
+                    window.mx.ui.error(`Error while executing onchange microflow ${onChangeMicroflow}${detail}`);
+                }
             });
         } else if (onChangeEvent === "callNanoflow" && onChangeNanoflow.nanoflow) {
             window.mx.data.callNanoflow({
                 nanoflow: onChangeNanoflow,
                 origin: mxform,
                 context,
-                error: error => window.mx.ui.error(`Error while executing onchange nanoflow: ${error.message}`)
+                error: error => {
+                    const detail = error.message ? `: ${error.message}` : "";
+                    window.mx.ui.error(`Error while executing onchange nanoflow${detail}`);
+                }
             });
         }
     }

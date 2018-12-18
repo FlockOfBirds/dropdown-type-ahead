@@ -32,7 +32,7 @@ export interface DropdownProps {
     location: string;
     readOnlyStyle: "control" | "text";
     asyncData: (input?: string) => Promise<{}>;
-    handleOnchange?: (selectedOption: ReferenceOption) => void;
+    handleOnchange?: (selectedOption: ReferenceOption | any) => void;
 }
 
 export function hideDropDown() {

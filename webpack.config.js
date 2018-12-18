@@ -8,6 +8,7 @@ const mxHost = process.env.npm_package_config_mendixHost || "http://localhost:80
 const developmentPort = process.env.npm_package_config_developmentPort || "3000";
 
 const widgetConfig = {
+    context: __dirname,
     entry: {
         DropdownReference: "./src/DropdownReference/components/DropdownReferenceContainer.ts",
         DropdownReferenceSet: "./src/DropdownReferenceSet/components/DropdownReferenceSetContainer.ts"
@@ -84,6 +85,7 @@ const widgetConfig = {
 };
 
 const previewConfig = {
+    context: __dirname,
     entry: {
         DropdownReference: "./src/DropdownReference/DropdownReference.webmodeler.ts",
         DropdownReferenceSet: "./src/DropdownReferenceSet/DropdownReferenceSet.webmodeler.ts",

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.mendix.widget.custom.dropdown.DropdownReferenceSet" needsEntityContext="true" offlineCapable="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../../../../../xsd/widget.xsd">
+    <name>Dropdown reference set</name>
+    <description>An input widget used to display and edit associations for reference sets</description>
+    <icon>iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAABBZJREFUeAHtWs1rE0EUn9naxmJBe1RTL4IgXivtVfGQKLbxEAuieFDqP2DVmx6kiPoXBD0pQhIoaUXbgx9HWyyCBxEELxr1qlBp048d39tu0v2Y2TjJdDNpZiHkzXtv3rzfb95OdjNDiLkMA4YBw4BhwDBgGOhUBmgQ+NjYWNq27Rzok0Fbm7fLlmWN5/P5WS8Oy9tAeYeCR2hJFxvKtStEAFh22szXwPKw8Qjwdtjx8q56CIvFYmidqNdHJ3s2m2VR+XR8BRgCosqjE2x11wDdSIB7+j3kNCjIaxHWrOMCG1fddrcAPMxcAyTrHDTrro1jEqvajgB4kvsAcCY5kCZdG8ckVrUdAQilv7//LqX0YxUWyqirtmW+25KAXC63BqAvwwe/HRl1MsCrvm1JACYP5Y4VcAc+t10ZRPmL9ytQhjDV9wGUfVd6ZiVNbJZjhO6DR8SfhLBFRq3SoYM9pdwg5c7C+CLr/vZjNUOZnSGEDsKj2QFK2G9i0fHZkd2+tzPfYHUahUKBtxbU6eU3hyoAXxnBBYE7r49+d2g54JEg1scIOwJgLhBmF76XK59Tpcq5oD/q0IY+6It9NvtCDIgV9I+7HaoAKCeckQHZRADYYQA2lZpeeTA8kriF/ednKvcA+ETkw7jsQIr9QwTUjQ9lS2tVwPFmbAKAbxpA5ng4Krh9yngLiOxx6Rt+08u+ZX1//6wdY9S+AjN8lTAWHYtSdHhEmfV4z97uT8UTdOl/QKr+hyr4ditfAW7WLoAFaC6kni/nyQZ5AvJ+AahfgP/i7EjvG4FdqN7uf6hCi6AwkwjD3Nne16SLXCKAMuSGM2+RhsCHYjWvwMXddykhACMiCVjivujQQF0jM1+N4/lVqqoa/eb+qkXft5JDnS6tDtlkY97bzSJdwy8zPXiraHkpqwBEh4tbECVPF/RpZVtpBSCQVGnZtw7MZXqVj6GSMKUVoDKxuGIZAuJiWtdxTAXoOjNx5WUqIC6mdR3HVICuMxNXXqYC4mJa13FMBeg6M3HlZSogLqZ1HcdUgPKZgT2vWkyvXFPqJSitANwrAPhb/wCB7Oj0wuzLRikBuFHiiw4Nni7o08q2UgJwlygIhqcL+rSyvVWuTWaRnlk+Cbtjr0JbZLgxQtmpZvYGmkwtsruSCnDA2+RpCDwODawwsKFPZCYtMjZcAXFtjm43L9IEbJ0QqZ0iCeVICX2ISjgzcD1kdBUwsLM93swJEVFsGb387nDU2QAYGcEPjSZuYhIL0xUhCfCwkMRzBuAmfRgDY6u65AkQjAzAv1qU3ngxmpjyHPqZODNdeWczdn/zBImgcwvV8osgnhBxzhDRJQD9BeRnhFrnB5KJowg+iAV1aEMf9MU+UCfQV48TIsF8TdswYBjoLAb+ARRjSEmycnI7AAAAAElFTkSuQmCC</icon>
+    <properties>
+        <property key="entityPath" type="entity" isPath="yes" pathType="referenceSet">
+            <caption>Entity path</caption>
+            <category>Data source</category>
+            <description/>
+        </property>
+        <property key="attribute" type="attribute" entityProperty="entityPath">
+            <caption>Attribute</caption>
+            <category>Data source</category>
+            <description>The attribute from which selectable values will be retrieved</description>
+            <attributeTypes>
+                <attributeType name="AutoNumber"/>
+                <attributeType name="Enum"/>
+                <attributeType name="Decimal"/>
+                <attributeType name="Integer"/>
+                <attributeType name="Long"/>
+                <attributeType name="String"/>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="editable" type="enumeration" defaultValue="default">
+            <caption>Editable</caption>
+            <category>Data source</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="default">Default</enumerationValue>
+                <enumerationValue key="never">Never</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="emptyOptionCaption" type="translatableString" required="false">
+            <caption>Empty caption</caption>
+            <category>Appearance</category>
+            <description>Text displayed when no selection is made</description>
+            <translations>
+                <translation lang="en_US">(no option selected)</translation>
+                <translation lang="nl_NL">(geen option selecteerd)</translation>
+            </translations>
+        </property>
+        <property key="readOnlyStyle" type="enumeration" defaultValue="control">
+            <caption>Read-only style</caption>
+            <category>Appearance</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="control">Control</enumerationValue>
+                <enumerationValue key="text">Text</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="isClearable" type="boolean" defaultValue="true">
+            <caption>Selection clearable</caption>
+            <category>Appearance</category>
+            <description>Adds a (x) clear button in the input</description>
+        </property>
+        <property key="loadingText" type="translatableString" required="false">
+            <caption>Loading text</caption>
+            <category>Appearance</category>
+            <description/>
+            <translations>
+                <translation lang="en_US">Loading</translation>
+                <translation lang="nl_NL">Laden</translation>
+            </translations>
+        </property>
+        <property key="searchText" type="translatableString" required="false">
+            <caption>Search text</caption>
+            <category>Appearance</category>
+            <description/>
+            <translations>
+                <translation lang="en_US">Search</translation>
+                <translation lang="nl_NL">Zoek</translation>
+            </translations>
+        </property>
+        <property key="showLabel" type="boolean" defaultValue="true">
+            <caption>Show label</caption>
+            <category>Label</category>
+            <description/>
+        </property>
+        <property key="labelCaption" type="translatableString" required="false">
+            <caption>Label caption</caption>
+            <category>Label</category>
+            <description/>
+            <translations>
+                <translation lang="en_US">Caption</translation>
+                <translation lang="nl_NL">Bijschrift</translation>
+            </translations>
+        </property>
+        <property key="labelWidth" type="integer" defaultValue="3">
+            <caption>Label width (weight)</caption>
+            <category>Label</category>
+            <description>The weight of the label, which must be a value between 0 and 12</description>
+        </property>
+        <property key="labelOrientation" type="enumeration" defaultValue="horizontal">
+            <caption>Form orientation</caption>
+            <category>Label</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="horizontal">Horizontal</enumerationValue>
+                <enumerationValue key="vertical">Vertical</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="source" type="enumeration" defaultValue="xpath">
+            <caption>Source</caption>
+            <category>Selectable objects</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="xpath">Database</enumerationValue>
+                <enumerationValue key="microflow">Microflow</enumerationValue>
+                <enumerationValue key="nanoflow">Nanoflow</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="entityConstraint" type="entityConstraint" entityProperty="entityPath" required="false">
+            <caption>XPath constraint</caption>
+            <category>Selectable objects</category>
+            <description/>
+        </property>
+        <property key="sortAttributes" type="object" isList="true" required="false">
+            <caption>Sort order</caption>
+            <category>Selectable objects</category>
+            <description>Sorting only applies to source 'Database'</description>
+            <properties>
+                <property key="name" type="attribute" required="false" isPath="optional" pathType="referenceSet" entityProperty="../entityPath">
+                    <caption>Attribute</caption>
+                    <category>Attribute</category>
+                    <description>Attribute to sort the list</description>
+                    <attributeTypes>
+                        <attributeType name="AutoNumber"/>
+                        <attributeType name="Enum"/>
+                        <attributeType name="Decimal"/>
+                        <attributeType name="Integer"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="sort" type="enumeration" defaultValue="asc">
+                    <caption>Sort</caption>
+                    <category>Attribute</category>
+                    <description/>
+                    <enumerationValues>
+                        <enumerationValue key="asc">Ascending</enumerationValue>
+                        <enumerationValue key="desc">Descending</enumerationValue>
+                    </enumerationValues>
+                </property>
+            </properties>
+        </property>
+        <property key="microflow" type="microflow" required="false">
+            <caption>Microflow</caption>
+            <category>Selectable objects</category>
+            <description>Returns a list of data values</description>
+            <returnType type="Object" entityProperty="entityPath" isList="true"/>
+        </property>
+        <property key="nanoflow" type="nanoflow" required="false">
+            <caption>Nanoflow</caption>
+            <category>Selectable objects</category>
+            <description>Returns a list of data values</description>
+            <returnType type="Object" entityProperty="entityPath" isList="true"/>
+        </property>
+        <property key="searchAttribute" type="attribute" required="false">
+            <caption>Search attribute</caption>
+            <category>Selectable objects</category>
+            <description>Attribute set with search text of the user, this could be used for filter results in microflow or nanoflow</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="selectType" type="enumeration" defaultValue="asynchronous">
+            <caption>Lazy loading</caption>
+            <category>Selectable objects</category>
+            <description>Start loading the selectable objects when dropdown is opened</description>
+            <enumerationValues>
+                <enumerationValue key="asynchronous">True</enumerationValue>
+                <enumerationValue key="normal">False</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="lazyFilter" type="enumeration" defaultValue="startWith">
+            <caption>Lazy loading filter</caption>
+            <category>Selectable objects</category>
+            <description>For source database, lazy data is could be filtered server side. "Start width" best performing option</description>
+            <enumerationValues>
+                <enumerationValue key="startWith">Starts with</enumerationValue>
+                <enumerationValue key="contains">Contains</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="minimumCharacter" type="integer" defaultValue="1">
+            <caption>Minimal search characters</caption>
+            <category>Selectable objects</category>
+            <description>Number of characters typed before an initial search is triggered</description>
+        </property>
+        <property key="searchPromptText" type="translatableString" required="false">
+            <caption>Search prompt text</caption>
+            <category>Selectable objects</category>
+            <description>Text to display on dropdown before typing</description>
+            <translations>
+                <translation lang="en_US">Type to search</translation>
+                <translation lang="nl_NL">Type om te zoeken</translation>
+            </translations>
+        </property>
+        <property key="onChangeEvent" type="enumeration" defaultValue="doNothing">
+            <caption>On change</caption>
+            <category>Events</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="doNothing">Do nothing</enumerationValue>
+                <enumerationValue key="callMicroflow">Call a microflow</enumerationValue>
+                <enumerationValue key="callNanoflow">Call a nanoflow</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="onChangeMicroflow" type="microflow" required="false">
+            <caption>On change microflow</caption>
+            <category>Events</category>
+            <description>Microflow executed on change selection</description>
+            <returnType type="Void"/>
+        </property>
+        <property key="onChangeNanoflow" type="nanoflow" required="false">
+            <caption>On change nanoflow</caption>
+            <category>Events</category>
+            <description>Nanoflow executed on change selection</description>
+            <returnType type="Void"/>
+        </property>
+    </properties>
+</widget>

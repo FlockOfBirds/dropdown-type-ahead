@@ -1,0 +1,75 @@
+@import "variables";
+.widget-dropdown-reference, .widget-dropdown-reference-set {
+  .Select-arrow {
+    display: none;
+  }
+
+  .Select-clear {
+    color: $gray-dark;
+  }
+
+  .Select.is-focused:not(.is-open) > .Select-control,
+  select.has-value.is-focused.is-open > .Select-control {
+    border-color: $brand-primary;
+    box-shadow: unset;
+  }
+
+  .Select-menu-outer {
+    border-color: $brand-primary;
+    box-shadow: none;
+  }
+
+  .Select.is-disabled.is-searchable > .Select-control, .Select.is-disabled.Select--single .Select-value {
+    background-color: $gray-lighter;
+    cursor: not-allowed;
+    .Select-arrow-zone {
+      opacity: 1.35;
+    }
+  }
+
+  .Select-control {
+    border: 1px solid $gray-primary;
+  }
+
+  .Select-value {
+    color: $brand-primary;
+    border-color: $brand-default;
+    background-color: $topbar-bg;
+  }
+
+  .Select-value-icon:hover {
+    background-color: $brand-default;
+    border-right-color: $brand-default;
+  }
+
+  .Select-value-icon {
+    border-right-color: $brand-default;
+  }
+
+  .Select-arrow-zone {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15px' height='8px'><polyline id='Line' fill='none' stroke='%23555555' points='0.5 0.5 6 6 11.545361 0.5'></polyline></svg>");
+  }
+}
+
+.widget-dropdown-reference.has-error, .widget-dropdown-reference-set.has-error {
+  .Select-control {
+    border-color: #a94442;
+  }
+}
+
+.widget-dropdown-reference-set {
+  .Select.has-value.is-disabled > .Select-control > .Select-multi-value-wrapper > .Select-value {
+    background-color: $gray-lighter;
+    border: none;
+    color: $gray;
+    font-size: 14px;
+  }
+}
+
+.popup-fix { overflow: hidden; }
+
+.form-control-static.read-only-text {
+  min-height: 34px;
+}
